@@ -9,6 +9,7 @@ function App() {
   const [date, setDate] = useState('');
   const [shortDescription, setShortDescription] = useState('');
   const [creatives, setCreatives] = useState([]);
+  const [cast, setCast] = useState([]);
 
   let performanceID = 14
 
@@ -21,6 +22,8 @@ function App() {
       setShortDescription(data.data.attributes.shortDescription);
       setDate(formatDate(data.included[performanceID].attributes.date));
       getCreatives(data.included)
+      const castIds = data.included[performanceID].relationships.cast.data;
+      getCastList(castIds, data.included);
     }
     else {
       console.log('ERROR');
@@ -39,6 +42,18 @@ function App() {
     })
     setCreatives(creatives);
   }
+
+  function getCastList(castIds, arr) {
+    let castList = [];
+    for (let i = 0; i < castIds.length; i++) {
+      for (let j = 0; j < arr.length; j++) {
+        if (castIds[i].id === arr[j].id) {
+          castList.push(arr[j]);
+        }
+      }
+    }
+    setCast(castList);
+  }
   
   useEffect(() => {
     getData();
@@ -50,14 +65,29 @@ function App() {
         <h1 className='heading'>{title}</h1>
         <p>Date: {date}</p>
         <p>{shortDescription}</p>
-        <ul>
+        <div>
           <h2>Creatives</h2>
               {
                 creatives.map((creative) => (
                   <li key={creative.attributes.id}>{creative.attributes.name} ({creative.attributes.role})</li>
                 ))
               }
-            </ul>
+            </div>
+      </div>
+      <div>
+        <h2>Cast</h2>
+        {
+          cast.length > 0 ? (
+            <div>
+              {
+                cast.map((member) => (
+                  <li key={member.id}>{member.attributes.role}: {member.attributes.name}</li>
+                ))
+              }
+            </div>
+          ) : <div></div>
+        }
+
       </div>
     </div>
   );
