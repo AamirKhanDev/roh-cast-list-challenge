@@ -19,7 +19,7 @@ function App() {
       let data = await response.json();
       console.log(data);
       setTitle(data.data.attributes.title);
-      setShortDescription(data.data.attributes.shortDescription);
+      setShortDescription(removeTag(data.data.attributes.shortDescription));
       setDate(formatDate(data.included[performanceID].attributes.date));
       getCreatives(data.included)
       const castIds = data.included[performanceID].relationships.cast.data;
@@ -31,6 +31,9 @@ function App() {
     }
   }
 
+  function removeTag(string) {
+    return (string.slice(3, -4));
+  }
 
   function formatDate(date) {
     return new Date(date).toLocaleDateString();
