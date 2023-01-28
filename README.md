@@ -1,3 +1,18 @@
+# INSTRUCTIONS
+
+1. Clone repo into your own directory
+2. CD into the root directory of this project.
+3. Execute `npm install` within the terminal of your IDE to install dependencies.
+4. Execute `npm start` within the terminal of your IDE to begin the react development server.
+5. A window should automatically pop up and display the application. If not you can manually enter `http://localhost:3000/` into your web address bar to view the application.
+
+# PREVIEW
+
+![image](https://user-images.githubusercontent.com/63204104/215256918-f0424f15-be08-48ee-a2e5-1051035e208d.png)
+
+
+
+
 # Cast List Challenge
 
 Dev challenge to build a tool for the ROH
